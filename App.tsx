@@ -1,6 +1,6 @@
 import React from 'react';
-import { MonthlyExpenses } from './src/screens/MonthlyExpenses';
+import { Router } from './src/Router';
 
 export default function App() {
-  return <MonthlyExpenses />;
+  return <Router />;
 }
