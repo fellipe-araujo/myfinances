@@ -6,7 +6,7 @@ import {
 import { RFValue } from 'react-native-responsive-fontsize';
 
 export const Container = styled.ScrollView`
-  padding-top: ${getStatusBarHeight() + RFValue(28)}px;
+  /* padding-top: ${getStatusBarHeight()}px; */
 `;
 
 export const Title = styled.Text`

@@ -32,7 +32,7 @@ export function ExpensesPerPerson(props: ExpensesPerPersonProps) {
       {props.expenses.map((expense, index) => (
         <Expense
           key={expense.id}
-          style={index % 2 != 0 ? { backgroundColor: '#e3cebd' } : ''}
+          style={index % 2 != 0 ? { backgroundColor: '#fcfdeb' } : ''}
         >
           <Title>{expense.title}</Title>
           <Value>{expense.value}</Value>
