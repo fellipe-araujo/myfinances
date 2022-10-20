@@ -45,7 +45,7 @@ const data_2 = [
 export function MonthlyExpenses() {
   return (
     <Container>
-      <Title>Despesas Mensais</Title>
+      {/* <Title>Despesas Mensais</Title> */}
 
       <ExpensesPerPerson
         person='Pessoa 1'

@@ -16,7 +16,7 @@ export const Button = styled(RectButton)<Props>`
           background-color: #322030;
         `
       : css`
-          background-color: #fcfdeb;
+          background-color: #e3cebd;
         `}
 `;
 

@@ -7,7 +7,7 @@ import { RFValue } from 'react-native-responsive-fontsize';
 
 export const Container = styled.View`
   flex: 1;
-  padding-top: ${getStatusBarHeight() + RFValue(28)}px;
+  padding-top: ${getStatusBarHeight()}px;
   border-radius: 8px;
   overflow: hidden;
   background-color: transparent;
