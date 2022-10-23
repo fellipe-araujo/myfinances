@@ -1,11 +1,11 @@
 import React from 'react';
 
 interface InstallmentCardProps {
-  installment: number;
+  installment: string;
   dueDate: string;
   value: string;
   inccMonth: string;
-  incc: number;
+  incc: string;
   status: 'PAGA' | 'PENDENTE' | string;
 }
 
@@ -25,7 +25,7 @@ export function InstallmentCard(props: InstallmentCardProps) {
     <Container>
       <Header>
         <HeaderTitle>Parcela</HeaderTitle>
-        <HeaderText>n° {props.installment}</HeaderText>
+        <HeaderText>{props.installment}</HeaderText>
       </Header>
 
       <Content>

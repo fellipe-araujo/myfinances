@@ -11,7 +11,7 @@ export function Router() {
   return (
     <NavigationContainer>
       <Drawer.Navigator
-        initialRouteName='Despesas Mensais'
+        initialRouteName='Gastos Mensais'
         screenOptions={{
           drawerActiveTintColor: '#322030',
           drawerInactiveTintColor: '#39393a',
@@ -19,8 +19,8 @@ export function Router() {
           headerTintColor: '#322030',
         }}
       >
-        <Drawer.Screen name='Despesas Mensais' component={MonthlyExpenses} />
-        <Drawer.Screen name='Despesas do apartamento' component={ApeExpenses} />
+        <Drawer.Screen name='Gastos Mensais' component={MonthlyExpenses} />
+        <Drawer.Screen name='Apartamento' component={ApeExpenses} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
