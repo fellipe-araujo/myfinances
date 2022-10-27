@@ -4,6 +4,8 @@ import {
   Container,
   Header,
   Person,
+  Content,
+  Line,
   Expense,
   ExpensesTotal,
   ExpensesTotalTitle,
@@ -15,7 +17,7 @@ import {
 interface ExpensesPerPersonProps {
   person: string;
   expenses: {
-    id: number;
+    id?: number;
     title: string;
     value: string;
   }[];
@@ -29,15 +31,19 @@ export function ExpensesPerPerson(props: ExpensesPerPersonProps) {
         <Person>{props.person}</Person>
       </Header>
 
-      {props.expenses.map((expense, index) => (
-        <Expense
-          key={expense.id}
-          style={index % 2 != 0 ? { backgroundColor: '#fcfdeb' } : ''}
-        >
-          <Title>{expense.title}</Title>
-          <Value>{expense.value}</Value>
-        </Expense>
-      ))}
+      <Content>
+        <Line />
+
+        {props.expenses.map((expense, index) => (
+          <Expense
+            key={expense.title}
+            style={index % 2 != 0 ? { backgroundColor: '#fcfdeb' } : ''}
+          >
+            <Title>{expense.title}</Title>
+            <Value>{expense.value}</Value>
+          </Expense>
+        ))}
+      </Content>
 
       <ExpensesTotal>
         <ExpensesTotalTitle>Total</ExpensesTotalTitle>

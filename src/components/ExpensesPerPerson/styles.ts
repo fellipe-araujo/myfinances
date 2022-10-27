@@ -6,7 +6,7 @@ export const Container = styled.View`
 `;
 
 export const Header = styled.View`
-  background-color: #725b75;
+  /* background-color: #725b75; */
   padding: 10px 20px;
 `;
 
@@ -14,7 +14,17 @@ export const Person = styled.Text`
   align-self: center;
   font-size: ${RFValue(16)}px;
   font-weight: bold;
-  color: #fff;
+  color: #322030;
+`;
+
+export const Content = styled.View`
+
+`;
+
+export const Line = styled.View`
+  width: 100%;
+  height: 1px;
+  background-color: #322030;
 `;
 
 export const Expense = styled.View`
