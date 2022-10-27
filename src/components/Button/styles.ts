@@ -1,17 +1,22 @@
 import styled, { css } from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
 import { RFValue } from 'react-native-responsive-fontsize';
+import { Feather } from '@expo/vector-icons';
 
 interface Props {
-  title: string;
+  type: string;
 }
 
-export const Button = styled(RectButton)<Props>`
+interface IconProps {
+  type: string;
+}
+
+export const Container = styled(RectButton)<Props>`
   margin-left: 16px;
   border-radius: 8px;
 
-  ${({ title }) =>
-    title === 'Adicionar'
+  ${({ type }) =>
+    type === 'primary'
       ? css`
           background-color: #322030;
         `
@@ -26,8 +31,8 @@ export const Content = styled.View<Props>`
   padding: 10px;
   border-radius: 8px;
 
-  ${({ title }) =>
-    title === 'Adicionar'
+  ${({ type }) =>
+    type === 'primary'
       ? css`
           border: 0;
         `
@@ -36,11 +41,19 @@ export const Content = styled.View<Props>`
         `}
 `;
 
+export const Icon = styled(Feather)<IconProps>`
+  font-size: ${RFValue(14)}px;
+
+  ${(props) => props.type === 'primary' && css`
+    color: #fff
+  `}
+`;
+
 export const Text = styled.Text<Props>`
   text-align: center;
 
-  ${({ title }) =>
-    title === 'Adicionar'
+  ${({ type }) =>
+    type === 'primary'
       ? css`
           color: #fff;
         `
