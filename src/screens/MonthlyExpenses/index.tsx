@@ -1,8 +1,11 @@
-import React from 'react';
-import { Feather } from '@expo/vector-icons';
+import React, { useState, useEffect } from 'react';
 
-import { ExpenseButton } from '../../components/ExpenseButton';
+import { Button } from '../../components/Button';
 import { ExpensesPerPerson } from '../../components/ExpensesPerPerson';
+import { InputContainer } from '../../components/Input/styles';
+import { SelectPeriod } from '../../components/SelectPeriod';
+import { expensesMonthlyService } from '../../services/expensesMonthlyService';
+import { DebtProps, PersonExpensesProps } from '../../utils/types';
 
 import {
   Container,
@@ -14,83 +17,75 @@ import {
   Value,
   Footer,
 } from './styles';
-import { InputContainer } from '../../components/Input/styles';
-
-const data_1 = [
-  {
-    id: 1,
-    title: 'Despesa 1',
-    value: 'R$ 10,00',
-  },
-  {
-    id: 2,
-    title: 'Despesa 2',
-    value: 'R$ 30,00',
-  },
-];
-
-const data_2 = [
-  {
-    id: 1,
-    title: 'Despesa 1',
-    value: 'R$ 10,00',
-  },
-  {
-    id: 2,
-    title: 'Despesa 2',
-    value: 'R$ 30,00',
-  },
-];
 
 export function MonthlyExpenses() {
+  const [periods, setPeriods] = useState<string[]>([]);
+  const [period, setPeriod] = useState('');
+  const [person1, setPerson1] = useState<PersonExpensesProps>();
+  const [person2, setPerson2] = useState<PersonExpensesProps>();
+  const [debt, setDebt] = useState<DebtProps>();
+
+  useEffect(() => {
+    async function loadPeriods() {
+      const response = await expensesMonthlyService.getPagesSheet();
+      setPeriods(response);
+    }
+
+    loadPeriods();
+  }, []);
+
+  async function handleSearchExpenses() {
+    const index = periods.findIndex((item) => item === period);
+    console.log(index);
+    const response = await expensesMonthlyService.getAllExpenses(String(index));
+
+    setPerson1(response.person1_expenses);
+    setPerson2(response.person2_expenses);
+    setDebt(response.debt);
+  }
+
   return (
     <Container>
-      {/* <Title>Despesas Mensais</Title> */}
+      <SelectPeriod
+        data={periods}
+        onSelect={(item) => setPeriod(item)}
+        buttonTextAfterSelection={(item) => item}
+        rowTextForSelection={(item) => item}
+        onPress={handleSearchExpenses}
+      />
 
       <ExpensesPerPerson
-        person='Pessoa 1'
-        expenses={data_1}
-        expensesTotal='R$ 40,00'
+        person={person1?.person!}
+        expenses={person1?.expenses!}
+        expensesTotal={person1?.totalValue!}
       />
       <ExpensesManager>
         <InputContainer placeholder='R$ 10,00' keyboardType='decimal-pad' />
 
         <ButtonsContainer>
-          <ExpenseButton
-            icon={<Feather name='arrow-down' color='#fff' />}
-            title='Adicionar'
-          />
-          <ExpenseButton
-            icon={<Feather name='arrow-up' color='#39393a' />}
-            title='Remover'
-          />
+          <Button title='Adicionar' type='primary' iconName='down' />
+          <Button title='Remover' type='secondary' iconName='up' />
         </ButtonsContainer>
       </ExpensesManager>
 
       <ExpensesPerPerson
-        person='Pessoa 2'
-        expenses={data_2}
-        expensesTotal='R$ 40,00'
+        person={person2?.person!}
+        expenses={person2?.expenses!}
+        expensesTotal={person2?.totalValue!}
       />
       <ExpensesManager>
         <InputContainer placeholder='R$ 10,00' keyboardType='decimal-pad' />
 
         <ButtonsContainer>
-          <ExpenseButton
-            icon={<Feather name='arrow-down' color='#fff' />}
-            title='Adicionar'
-          />
-          <ExpenseButton
-            icon={<Feather name='arrow-up' color='#39393a' />}
-            title='Remover'
-          />
+          <Button title='Adicionar' type='primary' iconName='down' />
+          <Button title='Remover' type='secondary' iconName='up' />
         </ButtonsContainer>
       </ExpensesManager>
 
       <Diviser />
 
-      <Conclusion>Pessoa 1 deve pagar a Pessoa 2 o valor de:</Conclusion>
-      <Value>R$ 400,00</Value>
+      <Conclusion>{debt?.person} deve pagar o valor de:</Conclusion>
+      <Value>{debt?.value}</Value>
 
       <Footer />
     </Container>
