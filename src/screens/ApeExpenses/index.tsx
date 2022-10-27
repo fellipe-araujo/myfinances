@@ -31,7 +31,6 @@ export function ApeExpenses() {
     async function getInstallments() {
       try {
         const response = await expensesApeService.getAllExpenses();
-        console.log(response);
 
         setInstallmentsManager(response.installmentsManager);
         setInstallmentsItems(response.installmentsItems);
