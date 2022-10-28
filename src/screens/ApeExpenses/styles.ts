@@ -63,6 +63,12 @@ export const InstallmentsContent = styled.ScrollView`
   margin-top: 30px;
 `;
 
+export const Content = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-self: center;
+`;
+
 export const Footer = styled.View`
   height: 10px;
   padding-bottom: ${getBottomSpace() + RFValue(20)}px;
