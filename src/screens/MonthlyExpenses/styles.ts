@@ -1,16 +1,12 @@
 import styled from 'styled-components/native';
-import {
-  getStatusBarHeight,
-  getBottomSpace,
-} from 'react-native-iphone-x-helper';
+import { getBottomSpace } from 'react-native-iphone-x-helper';
 import { RFValue } from 'react-native-responsive-fontsize';
 
-export const Container = styled.ScrollView`
-  /* padding-top: ${getStatusBarHeight()}px; */
+export const Container = styled.View`
+  flex: 1;
 `;
 
 export const Title = styled.Text`
-  align-self: center;
   color: #39393a;
   font-size: ${RFValue(18)}px;
   margin-bottom: 20px;
@@ -46,6 +42,14 @@ export const Value = styled.Text`
   font-size: ${RFValue(22)}px;
   font-weight: bold;
   color: #322030;
+`;
+
+export const ExpensesContent = styled.ScrollView``;
+
+export const Content = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const Footer = styled.View`

@@ -24,7 +24,7 @@ export function SelectPeriod({ data, onPress, ...rest }: SelectProps) {
           borderColor: '#322030',
           borderRadius: 8,
           alignSelf: 'center',
-          marginTop: 10,
+          marginVertical: 10,
           width: '60%',
         }}
         buttonTextStyle={{
