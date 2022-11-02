@@ -1,26 +1,31 @@
 import React, { ReactNode } from 'react';
 import { RectButtonProps } from 'react-native-gesture-handler';
 
-
 import { Container, Content, Icon, Text } from './styles';
 
 interface Props extends RectButtonProps {
   title: string;
   type: string;
-  iconName: 'down' | 'up' | 'search';
+  iconName?: 'plus' | 'search';
+  enabled?: boolean;
 }
 
 const icon = {
-  down: 'arrow-down',
-  up: 'arrow-up',
-  search: 'search'
-}
+  plus: 'plus',
+  search: 'search',
+};
 
-export function Button({ title, iconName, type, ...rest }: Props) {
+export function Button({
+  title,
+  iconName,
+  type,
+  enabled = true,
+  ...rest
+}: Props) {
   return (
-    <Container {...rest} type={type}>
+    <Container {...rest} enabled={enabled} type={type}>
       <Content type={type}>
-        <Icon name={icon[iconName]} type={type} />
+        {iconName && <Icon name={icon[iconName]} type={type} />}
 
         <Text type={type}>{title}</Text>
       </Content>

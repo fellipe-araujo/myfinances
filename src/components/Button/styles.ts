@@ -5,6 +5,7 @@ import { Feather } from '@expo/vector-icons';
 
 interface Props {
   type: string;
+  enabled: boolean;
 }
 
 interface IconProps {
@@ -23,6 +24,12 @@ export const Container = styled(RectButton)<Props>`
       : css`
           background-color: #e3cebd;
         `}
+
+  ${({ enabled }) =>
+    !enabled &&
+    css`
+      opacity: 0.7;
+    `}
 `;
 
 export const Content = styled.View<Props>`
@@ -44,9 +51,11 @@ export const Content = styled.View<Props>`
 export const Icon = styled(Feather)<IconProps>`
   font-size: ${RFValue(14)}px;
 
-  ${(props) => props.type === 'primary' && css`
-    color: #fff
-  `}
+  ${(props) =>
+    props.type === 'primary' &&
+    css`
+      color: #fff;
+    `}
 `;
 
 export const Text = styled.Text<Props>`
