@@ -1,5 +1,5 @@
 import api from './api';
-import { ExpensesProps } from '../utils/types';
+import { ExpensesProps, NewExpenseProps } from '../utils/types';
 
 interface ResponseExpensesProps {
   data: ExpensesProps;
@@ -24,6 +24,14 @@ class ExpensesMonthlyService {
     );
 
     return response.data;
+  }
+
+  async addExpense(props: NewExpenseProps) {
+    let value_formatted: string = props.value.slice(3).replace(',', '.');
+
+    props.value = value_formatted;
+
+    await api.post('/expenses-monthly/add-row', props);
   }
 }
 
