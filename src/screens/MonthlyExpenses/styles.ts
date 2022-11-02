@@ -1,6 +1,9 @@
 import styled from 'styled-components/native';
+import { Dimensions } from 'react-native';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
 import { RFValue } from 'react-native-responsive-fontsize';
+
+const { width } = Dimensions.get('window')
 
 export const Container = styled.View`
   flex: 1;
@@ -13,14 +16,21 @@ export const Title = styled.Text`
 `;
 
 export const ExpensesManager = styled.View`
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
+  margin: 32px 0;
+`;
+
+export const InputsContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
   margin: 32px 0;
 `;
 
 export const ButtonsContainer = styled.View`
   align-self: center;
   flex-direction: row;
+  padding-right: 8px;
 `;
 
 export const Diviser = styled.View`

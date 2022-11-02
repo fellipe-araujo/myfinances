@@ -10,9 +10,10 @@ import { Button } from '../Button';
 interface SelectProps extends SelectDropdownProps {
   data: string[];
   onPress: () => void;
+  period: string;
 }
 
-export function SelectPeriod({ data, onPress, ...rest }: SelectProps) {
+export function SelectPeriod({ data, onPress, period, ...rest }: SelectProps) {
   return (
     <Container>
       <SelectDropdown
@@ -55,6 +56,7 @@ export function SelectPeriod({ data, onPress, ...rest }: SelectProps) {
         iconName='search'
         type='primary'
         onPress={onPress}
+        enabled={period ? true : false}
       />
     </Container>
   );
