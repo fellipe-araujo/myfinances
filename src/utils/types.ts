@@ -32,3 +32,10 @@ export interface ExpensesProps {
   person2_expenses: PersonExpensesProps;
   debt: DebtProps;
 }
+
+export interface NewExpenseProps {
+  person: 'person1' | 'person2';
+  expense: string;
+  value: string;
+  period: string;
+}

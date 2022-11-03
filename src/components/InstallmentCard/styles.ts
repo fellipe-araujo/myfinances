@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
 interface Props {
-  status: boolean;
+  status: 'PAGA' | 'PENDENTE' | string;
 }
 
 export const Container = styled.View`
@@ -44,10 +44,16 @@ export const ItemTitle = styled.Text`
 
 export const ItemText = styled.Text<Props>`
   ${({ status }) =>
-    status
-      ? css`
-          font-weight: bold;
-          color: #322030;
-        `
-      : ''}
+    status === 'PAGA' &&
+    css`
+      font-weight: bold;
+      color: #322030;
+    `}
+
+  ${({ status }) =>
+    status === 'PENDENTE' &&
+    css`
+      font-weight: bold;
+      color: #c1a2a0;
+    `}
 `;

@@ -51,7 +51,7 @@ export function InstallmentCard(props: InstallmentCardProps) {
 
         <ContentBox>
           <ItemTitle>Status</ItemTitle>
-          <ItemText status>{props.status}</ItemText>
+          <ItemText status={props.status}>{props.status}</ItemText>
         </ContentBox>
       </Content>
     </Container>

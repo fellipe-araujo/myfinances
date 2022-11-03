@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { ActivityIndicator } from 'react-native';
+import MaskInput, { Masks } from 'react-native-mask-input';
 
 import { Button } from '../../components/Button';
 import { ExpensesPerPerson } from '../../components/ExpensesPerPerson';
-import { InputContainer } from '../../components/Input/styles';
+import { Input } from '../../components/Input';
 import { SelectPeriod } from '../../components/SelectPeriod';
 import { expensesMonthlyService } from '../../services/expensesMonthlyService';
 import { DebtProps, PersonExpensesProps } from '../../utils/types';
@@ -12,6 +13,7 @@ import {
   Container,
   Title,
   ExpensesManager,
+  InputsContainer,
   ButtonsContainer,
   Diviser,
   Conclusion,
@@ -27,6 +29,8 @@ export function MonthlyExpenses() {
   const [person1, setPerson1] = useState<PersonExpensesProps | null>(null);
   const [person2, setPerson2] = useState<PersonExpensesProps | null>(null);
   const [debt, setDebt] = useState<DebtProps | null>(null);
+  const [newItemExpense, setNewItemExpense] = useState('');
+  const [newItemValue, setNewItemValue] = useState('');
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -55,6 +59,18 @@ export function MonthlyExpenses() {
     setLoading(false);
   }
 
+  async function handleAddExpense(current_person: 'person1' | 'person2') {
+    const index = periods.findIndex((item) => item === period);
+    const data = {
+      person: current_person,
+      expense: newItemExpense,
+      value: newItemValue,
+      period: String(index),
+    };
+
+    await expensesMonthlyService.addExpense(data);
+  }
+
   return (
     <Container>
       <SelectPeriod
@@ -63,6 +79,7 @@ export function MonthlyExpenses() {
         buttonTextAfterSelection={(item) => item}
         rowTextForSelection={(item) => item}
         onPress={handleSearchExpenses}
+        period={period}
       />
 
       {loading && (
@@ -79,11 +96,33 @@ export function MonthlyExpenses() {
             expensesTotal={person1?.totalValue!}
           />
           <ExpensesManager>
-            <InputContainer placeholder='R$ 10,00' keyboardType='decimal-pad' />
+            <InputsContainer>
+              <Input
+                placeholder='Sushi'
+                keyboardType='default'
+                value={newItemExpense}
+                onChangeText={setNewItemExpense}
+              />
+              <Input
+                masked
+                placeholder='R$ 80,50'
+                keyboardType='phone-pad'
+                value={newItemValue}
+                onChangeText={(masked, unmasked) => {
+                  setNewItemValue(masked);
+                }}
+                mask={Masks.BRL_CURRENCY}
+              />
+            </InputsContainer>
 
             <ButtonsContainer>
-              <Button title='Adicionar' type='primary' iconName='down' />
-              <Button title='Remover' type='secondary' iconName='up' />
+              <Button
+                title='Adicionar Despesa'
+                type='secondary'
+                onPress={() => handleAddExpense('person1')}
+                enabled={(newItemExpense && newItemValue) ? true : false}
+              />
+              {/* <Button title='Remover' type='secondary' iconName='up' /> */}
             </ButtonsContainer>
           </ExpensesManager>
 
@@ -93,11 +132,27 @@ export function MonthlyExpenses() {
             expensesTotal={person2?.totalValue!}
           />
           <ExpensesManager>
-            <InputContainer placeholder='R$ 10,00' keyboardType='decimal-pad' />
+            <InputsContainer>
+              <Input placeholder='Sushi' keyboardType='default' />
+              <Input
+                masked
+                placeholder='R$ 80,50'
+                keyboardType='phone-pad'
+                value={newItemValue}
+                onChangeText={(masked, unmasked) => {
+                  setNewItemValue(masked);
+                }}
+                mask={Masks.BRL_CURRENCY}
+              />
+            </InputsContainer>
 
             <ButtonsContainer>
-              <Button title='Adicionar' type='primary' iconName='down' />
-              <Button title='Remover' type='secondary' iconName='up' />
+              <Button
+                title='Adicionar Despesa'
+                type='secondary'
+                onPress={() => handleAddExpense('person2')}
+              />
+              {/* <Button title='Remover' type='secondary' iconName='up' /> */}
             </ButtonsContainer>
           </ExpensesManager>
 
